@@ -1,0 +1,22 @@
+<object-stream>
+  <list>
+    <models.User>
+      <firstName>lance</firstName>
+      <lastName>hardwood</lastName>
+      <age>12</age>
+      <occupation>apache attack helicopter</occupation>
+    </models.User>
+    <models.User>
+      <firstName>beth</firstName>
+      <lastName>Smith</lastName>
+      <age>34</age>
+      <occupation>universe-kin</occupation>
+    </models.User>
+    <models.User>
+      <firstName>Lisa</firstName>
+      <lastName>Simpson</lastName>
+      <age>21</age>
+      <occupation>roof shingle-kin</occupation>
+    </models.User>
+  </list>
+</object-stream>

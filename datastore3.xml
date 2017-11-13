@@ -1,0 +1,41 @@
+<object-stream>
+  <java.util.Stack serialization="custom">
+    <unserializable-parents/>
+    <vector>
+      <default>
+        <capacityIncrement>0</capacityIncrement>
+        <elementCount>3</elementCount>
+        <elementData>
+          <map>
+            <entry>
+              <long>1</long>
+              <models.User>
+                <id>1</id>
+                <firstName>Ger</firstName>
+                <lastName>O Dywer</lastName>
+                <age>24</age>
+                <occupation>Student</occupation>
+                <gender>M</gender>
+                <movietitle/>
+              </models.User>
+            </entry>
+          </map>
+          <map>
+            <entry>
+              <string>Ger</string>
+              <models.User reference="../../../map/entry/models.User"/>
+            </entry>
+          </map>
+          <map/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+          <null/>
+        </elementData>
+      </default>
+    </vector>
+  </java.util.Stack>
+</object-stream>
