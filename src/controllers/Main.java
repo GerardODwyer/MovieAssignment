@@ -1,97 +1,82 @@
 package controllers;
 
 import java.io.File;
-import java.util.Collection;
+import java.io.IOException;
 
-import models.User;
+import asg.cliche.Command;
+import asg.cliche.Param;
+import asg.cliche.Shell;
+import asg.cliche.ShellDependent;
+import asg.cliche.ShellFactory;
 import utils.Serializer;
 import utils.XMLSerializer;
 
-public class Main
+
+
+
+
+
+
+public class Main implements ShellDependent
 {
+	public MovieAPI movies;
+	public static final String ADMIN = "admin";
+	private Shell theShell;
 	
-
-    public static void main(String[] args) throws Exception {
-    
-    
-    File  datastore = new File("datastore4.xml");
-    Serializer serializer = new XMLSerializer(datastore);
-
-    MovieAPI movieAPI = new MovieAPI(serializer);
-    if (datastore.isFile())
-    {
-      movieAPI.load();
-    }
+	public Main()throws Exception {
+		File movie = new File("deatils.xml");
+		Serializer serial = new XMLSerializer(movie);
+		movies = new MovieAPI(serial);
+		if (movie.isFile()) {
+			movies.load();
+		}
+		
+		
+		
+		
+		
+	}
 	
-    movieAPI.initalLoad();
-    movieAPI. createUser("Ger", "O Dywer", "24", "Student", "M");
-    
-
-    Collection<User> users = movieAPI.getUsers();
-    System.out.println(users);
-    
-    User homer = movieAPI.getUserByFirstName("Ger");
-    System.out.println(homer);
-    
-    movieAPI.store();
-    
-    
-    }
+	@Override
+	public void cliSetShell(Shell shell) {
+		this.theShell =shell;
+	}
+	
+	
+	
+	
+	
+	
+	@Command(description = "Log In")
+	public void login(@Param(name="id") long id, @Param(name="last name")String last) {
+		 if (MovieAPI.login(userName, pass) && MovieAPI.currentUser.isPresent()) {
+			 
+		      User user = MovieAPI.currentUser.get();
+		      System.out.println("You are logged in as " + user.email);
+		      if (user.role!=null && user.role.equals(ADMIN)) {
+		        AdminMenu adminMenu = new AdminMenu(MovieAPI, user.firstName);
+		        ShellFactory.createSubshell(user.firstName, theShell, "Admin", adminMenu).commandLoop();
+		      } else {
+		        DefaultMenu defaultMenu = new DefaultMenu(MovieAPI, user);
+		        ShellFactory.createSubshell(user.firstName, theShell, "Default", defaultMenu).commandLoop();
+		      }
+		    } else
+		      System.out.println("Unknown username and or password.");
+		  }
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) throws Exception {
+		Main main = new Main();
+		//main.movies.initalLoad();
+		Shell shell = ShellFactory.createConsoleShell("lm", "Welcome to my movie api", main);
+		shell.commandLoop();
+		main.movies.store();
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-//do
-//{
- //   System.out.println("-----------------------------");
-   // System.out.println("which option would you like to perform");
-   // System.out.println("1.add user");
-   // System.out.println("2.remove user");
-   // System.out.println("3.add movie");
-   // System.out.println("4.remove movie");
-   // System.out.println("5.exit");
-   // System.out.println("-----------------------------");
-   // System.out.println("Please select an option: ");     
-   // choice = EasyScanner.nextInt();
-
-   // switch (choice)
-   // {
-
-      //  case 1:
-       // do
-      //  {
-          
-
-        //    switch (choice2)
-        //    {
-//
-        //        case 1:
-              //  break;
-              //  case 2:
-              //  break;
-
-              //  case 3:
-              
-             //   break;
-                
-            //    default:
-              //  System.out.println("Invalid choice. Please choose again: ");
-         //   }
-      //  }while (choice2 != 5);
-
-   
-//}
-
-
-
 
 
 

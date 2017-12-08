@@ -10,8 +10,8 @@ public class MovieTest {
 	  @Test
 	  public void testCreate()
 	  {
-	    assertEquals ("life",          test.title);
-	    assertEquals ("1999",        test.year);
+	    assertEquals ("thor",          test.title);
+	    assertEquals ("2017",        test.year);
 	    assertEquals ("https://en.wikipedia.org/wiki/Thor_(film)",   test.URL);    
 	  }
 
