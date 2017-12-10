@@ -3,7 +3,7 @@ package models;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+//test movie
 public class MovieTest {
 	  Movie test = new Movie ("thor",  "2017", "https://en.wikipedia.org/wiki/Thor_(film)");
 

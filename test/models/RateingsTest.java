@@ -3,7 +3,7 @@ package models;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
+//test rateings
 public class RateingsTest {
 
 	Rateings test = new Rateings(1L, 2L, 3);

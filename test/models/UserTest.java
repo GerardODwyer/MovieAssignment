@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Test;
 
 
-
+//test user
 public class UserTest
 {
   User bob = new User ("Bob", "Bobby", 52, "clerk", "male");

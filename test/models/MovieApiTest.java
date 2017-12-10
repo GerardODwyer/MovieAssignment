@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import controllers.MovieAPI;
 
-
+//test api
 public class MovieApiTest {
 
 		  private MovieAPI movie;
@@ -24,6 +24,8 @@ public class MovieApiTest {
 		     movie.createUser(user.firstName, user.lastName,user.age, user.occupation, user.gender);
 		    }
 		  }
+		  
+		  
 
 		  @After
 		  public void tearDown()
@@ -31,6 +33,8 @@ public class MovieApiTest {
 		    movie = null;
 		  }
 
+		  
+		  
 		  @Test
 		  public void testUser()
 		  {
@@ -39,7 +43,8 @@ public class MovieApiTest {
 		    assertEquals (users.length+1, movie.getUsers().size());
 		    assertEquals (users[0], movie.getUserByFirstName(users[0].firstName));
 		  }  
-
+		  
+//test user
 		  @Test
 		  public void testUsers()
 		  {
@@ -52,6 +57,8 @@ public class MovieApiTest {
 		    }
 		  }
 
+		  
+		  //test delete user
 		  @Test
 		  public void testDeleteUsers()
 		  {

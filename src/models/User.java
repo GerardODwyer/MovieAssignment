@@ -9,8 +9,9 @@ import com.google.common.base.Objects;
 
 import utils.ToJsonString;
 
-public class User implements Comparable<User>{
-	public Long id ;
+//create variables
+public class User implements Comparable<User> {
+	public Long id;
 	public static long counter = (long) 01;
 	public String firstName;
 	public String lastName;
@@ -35,18 +36,11 @@ public class User implements Comparable<User>{
 		this(firstName, lastName, age, occupation, gender, "default");
 	}
 
-	
 	@Override
 	public String toString() {
-		return toStringHelper(this).addValue(id)
-				.addValue(firstName)
-				.addValue(lastName)
-				.addValue(age)
-				.addValue(occupation)
-				.addValue(gender).toString() ;
+		return toStringHelper(this).addValue(id).addValue(firstName).addValue(lastName).addValue(age)
+				.addValue(occupation).addValue(gender).toString();
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -70,7 +64,5 @@ public class User implements Comparable<User>{
 		// TODO Auto-generated method stub
 		return this.firstName.compareTo(user.firstName);
 	}
-	
-	
-	
+
 }

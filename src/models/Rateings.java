@@ -8,7 +8,7 @@ import java.util.List;
 import com.google.common.base.Objects;
 
 import utils.ToJsonString;
-
+//call variables
 public class Rateings
 {
   static Long   counter = 0l;
@@ -17,9 +17,7 @@ public class Rateings
   public int rateing;
   public Long userid;
   public Long movieid;
-
   
-
   public Rateings (Long userid, Long movieid, int rateing)
   {
     this.id        = counter++;

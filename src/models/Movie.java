@@ -9,15 +9,16 @@ import com.google.common.base.Objects;
 
 public class Movie {
 	static Long counter = 0l;
-
+//create variables
 	public Long id;
-
 	public String title;
 	public String year;
 	public String URL;
 
 	public Map<Long, Rateings> route = new HashMap<>();
 
+	
+	//constructor
 	public Movie(String title, String year, String URL) {
 		this.id = counter++;
 		this.title = title;
@@ -25,14 +26,14 @@ public class Movie {
 		this.URL = URL;
 	}
 
+	
+	//to string returns values 
 	@Override
 	public String toString() {
-		return toStringHelper(this).addValue(id)
-				.addValue(counter)
-				.addValue(title)
-				.addValue(year)
-				.addValue(URL +"\n").toString() ;
+		return toStringHelper(this).addValue(id).addValue(counter).addValue(title).addValue(year).addValue(URL + "\n")
+				.toString();
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(this.id, this.title, this.year, this.URL);
@@ -49,5 +50,3 @@ public class Movie {
 		}
 	}
 }
-
-	

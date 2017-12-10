@@ -1,5 +1,5 @@
 package models;
-
+//test fixtures
 public class Fixtures
 {
   public static User[] users =
