@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controllers.MovieAPI;
-import models.User;
 
 
 public class MovieApiTest {

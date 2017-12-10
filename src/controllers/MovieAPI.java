@@ -23,7 +23,8 @@ public class MovieAPI
   private Map<Long, Movie> movieIndex = new HashMap<>();
   private Map<Long, Rateings> rateIndex = new HashMap<>();
   
-  Optional<User> currentUser;
+  public Optional<User> currentUser;
+  
 
   public MovieAPI()
   {
@@ -45,12 +46,18 @@ public class MovieAPI
     firstNameIndex.clear();
   }
 
-  public User createUser(String firstName, String lastName, int age, String occupation, String gender) 
+  public void createUser(String firstName, String lastName, int age, String occupation, String gender) 
   {
-    User user = new User (firstName, lastName,age,occupation, gender);
+    User user = new User (firstName, lastName, age, occupation, gender);
     userIndex.put(user.id, user);
-    firstNameIndex.put(firstName, user);
-    return user;
+    
+  }
+  
+  public void createAdminUser(String firstName, String lastName, int age, String occupation, String gender, String role) 
+  {
+    User user = new User (firstName, lastName, age, occupation, gender, role);
+    userIndex.put(user.id, user);
+    
   }
 
   public User getUserByFirstName(String firstName) 
@@ -69,56 +76,53 @@ public class MovieAPI
     firstNameIndex.remove(user.firstName);
   }
 
-  public void createMovie(Long id, String title, String year, String URL)
+  public void createMovie(String title, String year, String URL)
   {
     Movie movie = new Movie(title, year, URL);
-    Optional<User> user = Optional.fromNullable(userIndex.get(id));
-    if (user.isPresent())
-    {
-      user.get().movietitle.put(movie.id, movie);
       movieIndex.put(movie.id, movie);
-    }
+ 
   }
-
+ 
+  
   public Movie getMovie(Long id)
   {
     return movieIndex.get(id);
   }
+ 
+	public void addRatings(Long userID, Long movieID, int rating) {
+		Rateings ratings;
+		Optional<User> user = Optional.fromNullable(userIndex.get(userID));
+		Optional<Movie> movie = Optional.fromNullable(movieIndex.get(movieID));
+		if (movie.isPresent() && user.isPresent()) {
+			ratings = new Rateings(userID, movieID, rating); // add new rating
+			user.get().movietitle.put(ratings.id, ratings); // attach user to a rating
+			movie.get().route.put(ratings.id, ratings); // attach a movie to a rating
+			rateIndex.put(ratings.id, ratings); // add rating to a collection
+			
+			
 
-  public void addRateing (Long id, Long userid, Long movieid, int rateing)
-  {
-    Optional<Movie> activity = Optional.fromNullable(movieIndex.get(id));
-    if (activity.isPresent())
-    {
-      //activity.get().route.add(new Rateings(userid, movieid, rateing));
-    }
-  }
-  
+		}
+	}
  
   
   @SuppressWarnings("unchecked")
   public void load() throws Exception
   {
     serializer.read();
-    userIndex       = (Map<Long, User>)     serializer.pop();
-    firstNameIndex      = (Map<String, User>)   serializer.pop();
+    userIndex  = (Map<Long, User>)  serializer.pop();
     movieIndex = (Map<Long, Movie>) serializer.pop();
-    
-    
+    rateIndex = (Map<Long, Rateings>) serializer.pop();
   }
 
   void store() throws Exception
   {
+	  serializer.push(rateIndex);
+	  serializer.push(movieIndex);
     serializer.push(userIndex);
-    serializer.push(firstNameIndex);
-    serializer.push(movieIndex);
+    
     serializer.write(); 
   }
-  
-  public void addMovies(String title, String year, String url) {
-		Movie movie = new Movie(title, year, url);
-		movieIndex.put(movie.id, movie);
-  }
+ 
   
   public void initalLoad() throws IOException {
 		String delims = "[|]";
@@ -145,7 +149,21 @@ public class MovieAPI
 			String[] userTokens = userDetails.split(delims);
 
 			if (userTokens.length == 23) {
-				addMovies(userTokens[1], userTokens[2], (userTokens[3]));
+				createMovie(userTokens[1], userTokens[2], (userTokens[3]));
+			} else {
+				scanner.close();
+				throw new IOException("Invalid member length: " + userTokens.length);
+			}
+		}
+		
+		scanner = new Scanner(new File("./lib/ratings5.dat"));
+		while (scanner.hasNextLine()) {
+			String userDetails = scanner.nextLine();
+			// parse user details string
+			String[] userTokens = userDetails.split(delims);
+
+			if (userTokens.length == 4) {
+				addRatings(Long.valueOf(userTokens[1]), Long.valueOf(userTokens[2]), Integer.valueOf(userTokens[3]));
 			} else {
 				scanner.close();
 				throw new IOException("Invalid member length: " + userTokens.length);
@@ -161,7 +179,6 @@ public class MovieAPI
     Optional<User> user = Optional.fromNullable(userIndex.get(id));
     if (user.isPresent() && user.get().lastName.equals(password)) {
       currentUser = user;
-      FileLogger.getLogger().log(currentUser.get().firstName + " logged in...");
       return true;
     }
     return false;
@@ -171,7 +188,6 @@ public class MovieAPI
  public void logout() {
    Optional<User> user = currentUser;
    if (user.isPresent()) {
-     FileLogger.getLogger().log(currentUser.get().firstName + " logged out...");
      currentUser = Optional.absent();
    }
  }

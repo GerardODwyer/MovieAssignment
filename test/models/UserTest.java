@@ -30,7 +30,7 @@ public class UserTest
   @Test
   public void testEquals()
   {
-    User Bob2 = new User ("Bob", "Bobby",52, "clerk",  "male"); 
+    User Bob2 = new User ("Bob", "Bobby",52, "clerk", "male"); 
     User Beth   = new User ("Beth", "Smith", 52, "maid",  "female");
 
     assertEquals(bob, bob);

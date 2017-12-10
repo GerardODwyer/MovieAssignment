@@ -1,10 +1,11 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.google.common.base.MoreObjects.toStringHelper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.common.base.Objects;
-import static com.google.common.base.MoreObjects.toStringHelper;
 
 public class Movie {
 	static Long counter = 0l;
@@ -15,7 +16,7 @@ public class Movie {
 	public String year;
 	public String URL;
 
-	public List<Movie> route = new ArrayList<>();
+	public Map<Long, Rateings> route = new HashMap<>();
 
 	public Movie(String title, String year, String URL) {
 		this.id = counter++;
@@ -26,10 +27,12 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return toStringHelper(this).addValue(id).addValue(title).addValue(year).addValue(URL).addValue(route)
-				.toString();
+		return toStringHelper(this).addValue(id)
+				.addValue(counter)
+				.addValue(title)
+				.addValue(year)
+				.addValue(URL +"\n").toString() ;
 	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(this.id, this.title, this.year, this.URL);
@@ -45,33 +48,6 @@ public class Movie {
 			return false;
 		}
 	}
-
-	// getters + setters for Movie
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getYear () {
-		return year;
-	}
-	public void setYear (String year) {
-		this.year = year;
-	}
-	
-	public String getURL() {
-		return URL;
-	}
-	public void setURL(String URL) {
-		this.URL = URL;
-	}
 }
+
+	

@@ -2,7 +2,12 @@ package models;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.base.Objects;
+
+import utils.ToJsonString;
 
 public class Rateings
 {
@@ -13,7 +18,7 @@ public class Rateings
   public Long userid;
   public Long movieid;
 
- 
+  
 
   public Rateings (Long userid, Long movieid, int rateing)
   {
@@ -23,15 +28,14 @@ public class Rateings
     this.rateing = rateing;
   }
 
-  @Override
-  public String toString()
-  {
-    return toStringHelper(this).addValue(id)
-                               .addValue(movieid)
-                               .addValue(userid)
-                               .addValue(rateing)
-                               .toString();
-  }
+	@Override
+	public String toString() {
+		return toStringHelper(this).addValue(id)
+				.addValue(id)
+				.addValue(userid)
+				.addValue(rateing +"\n").toString() ;
+	}
+
 
   @Override  
   public int hashCode()  
